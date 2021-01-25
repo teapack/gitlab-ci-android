@@ -1,5 +1,5 @@
 FROM ubuntu:20.04
-MAINTAINER Jan Grewe <jan@faked.org>
+MAINTAINER Vratislav Jindra <jindra.vratislav@gmail.com>
 
 ENV VERSION_TOOLS "6609375"
 
@@ -47,3 +47,7 @@ RUN mkdir -p /root/.android \
 
 RUN while read -r package; do PACKAGES="${PACKAGES}${package} "; done < /sdk/packages.txt \
  && ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} ${PACKAGES}
+
+ADD https://dl.google.com/android/repository/${VERSION_ANDROID_NDK}-linux-x86_64.zip /ndk.zip
+RUN unzip /ndk.zip -d /sdk && \
+    rm -v /ndk.zip
